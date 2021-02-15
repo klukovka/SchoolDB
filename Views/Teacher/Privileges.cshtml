@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Privileges";
+}
+
+<h2>Соціальні категорії</h2>
+<table class="table">
+    @if (ViewBag.Count != 0)
+    {
+        <tr>
+            <th>Соціальна категорія</th>
+            <th>Знижка</th>
+            <th>Кількість у класі</th>
+            <th></th>
+        </tr>
+        foreach (var item in ViewBag.Priv)
+        {
+            <tr>
+                <td>@item["Privilege_id"]</td>
+                <td>@item["Sale"]</td>
+                <td>@item["Amount"]</td>
+                <td></td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <th>Соціальна категорія</th>
+            <th>Знижка</th>
+            <th></th>
+        </tr>
+        foreach (var item in ViewBag.Priv)
+        {
+            <tr>
+                <td>@item["Privilege_id"]</td>
+                <td>@item["Sale"]</td>
+                <td></td>
+            </tr>
+        }
+    }
+</table>
+

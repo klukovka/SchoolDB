@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Marks";
+}
+
+<h2>Оцінки</h2>
+@Html.ActionLink("Завантажити", "DownloadMarks", new { Date_start = new DateTime(2020,9,1), Date_end = DateTime.Now})
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>Предмет</th>
+            <th>Оцінка</th>
+            <th>Тип роботи</th>
+            <th>Дата виставлення</th>
+            <th>Вчитель</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Subject", $"{@ViewBag.Subject}", new { @class = "form-control", @style="width: 200px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="Mark" id="Mark" class="form-control" style="width:auto">
+                        <option>@ViewBag.Mark</option>
+                        @foreach (var item in ViewBag.MarksList)
+                        {
+                            if (item != ViewBag.Mark)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="Type" id="Type" class="form-control" style="width:auto">
+                        <option>@ViewBag.Type</option>
+                        @foreach (var item in ViewBag.Types)
+                        {
+                            if (item != ViewBag.Type)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+
+                    Від:<input type="date" value="@ViewBag.Date_start" class="form-control"
+                               name="Date_start" id="Date_start" style="width:auto"> <br />
+                    До:<input type="date" value="@ViewBag.Date_end" class="form-control"
+                              name="Date_end" id="Date_end" style="width:auto">
+
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher", $"{@ViewBag.Teacher}", new { @class = "form-control",  @style="width: 200px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Фільтр" class="btn btn-default" />
+                </div>
+            </th>
+        </tr>
+        @foreach (var item in ViewBag.Marks)
+        {
+            <tr>
+                <td>@item.Teacher_Subject.Subject</td>
+                <td>@item.Mark</td>
+                <td>@item.Work_id</td>
+                <td>@item.Date_create</td>
+                <td>@item.Teacher_Subject.Teachers.Teacher_name</td>
+
+            </tr>
+        }
+    </table>
+
+}

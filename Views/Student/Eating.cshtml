@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Eating";
+}
+
+<h2>Харчування</h2>
+<table class="table">
+    <tr>
+        <th>ПІБ учня</th>
+        <td>@ViewBag.Info["Student_id"]</td>
+    </tr>
+    <tr>
+        <th>Соціальний статус</th>
+        <td>@ViewBag.Info["Privalage_id"]</td>
+    </tr>
+    <tr>
+        <th>Повна вартість порції</th>
+        <td>@ViewBag.Info["Full_Payment"]</td>
+    </tr>
+    <tr>
+        <th>Знижка</th>
+        <td>@ViewBag.Info["Sale"]</td>
+    </tr>
+    <tr>
+        <th>Сума до сплати</th>
+        <td>@ViewBag.Info["Payment"]</td>
+    </tr>
+    <tr>
+        <th>Чек:</th>
+        <td>
+            @Html.ActionLink("Завантажити інформацію", "DownloadInvoice", new { id = @ViewBag.Info["Student_id"] })
+        </td>
+    </tr>
+</table>
+

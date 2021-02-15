@@ -1,0 +1,121 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Forms";
+}
+<h1>Класи</h1>
+@Html.ActionLink("Додати", "CreateForm")
+@using (Html.BeginForm())
+{
+    <h2>Мої класи</h2>
+    <table class="table">
+        <tr>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Form_id", $"{@ViewBag.Form_id}", new { @class = "form-control" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="Direction" id="Direction" class="form-Form" style="width:auto">
+                        <option>@ViewBag.Direction</option>
+                        @foreach (var item in ViewBag.Directions)
+                        {
+                            if (item != ViewBag.Direction)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_name", $"{@ViewBag.Teacher_name}", new { @class = "form-control" })
+                </div>
+            </th>
+            <td>
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Фільтр" class="btn btn-default" />
+                </div>
+
+            </td>
+
+        </tr>
+        @foreach (var item in ViewBag.MyForms)
+        {
+            <tr>
+                <th>Клас</th>
+                <th>Спрямування</th>
+                <th>Класний керівник</th>
+                <td>
+                    @Html.ActionLink("Редагувати", "EditForm", new { id = item.Form_id })
+                    <br />
+                    @Html.ActionLink("Завантажити інформацію", "DownloadForms", new { id = item.Form_id })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>@item.Form_id</td>
+                <td>@item.Direction</td>
+                <td>@item.Teachers.Teacher_name</td>
+            </tr>
+            <tr>
+                <th>
+                    Список учнів
+                </th>
+            </tr>
+            foreach (var s in item.Students)
+            {
+                <tr>
+                    <td>
+                        @s.Student_name
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+
+<h2>Інші класи</h2>
+<table class="table">
+    @foreach (var item in ViewBag.Forms)
+    {
+        <tr>
+            <th>Клас</th>
+            <th>Спрямування</th>
+            <th>Класний керівник</th>
+            <td>
+                @Html.ActionLink("Редагувати", "EditForm", new { id = item.Form_id })
+                <br />
+                @Html.ActionLink("Завантажити інформацію", "DownloadForms", new { id = item.Form_id })
+            </td>
+        </tr>
+        <tr>
+            <td>@item.Form_id</td>
+            <td>@item.Direction</td>
+            <td>@item.Teachers.Teacher_name</td>
+
+        </tr>
+        <tr>
+            <th>
+                Список учнів
+            </th>
+        </tr>
+        foreach (var s in item.Students)
+        {
+            <tr>
+                <td>
+                    @s.Student_name
+                </td>
+            </tr>
+        }
+    }
+</table>
+}

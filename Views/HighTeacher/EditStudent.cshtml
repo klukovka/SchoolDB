@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditStudent</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Редагування</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("Student_id", $"{ViewBag.Info.Student_id}")
+
+        <div class="form-group">
+            <label class="control-label col-md-2">ПІБ учня</label>
+            <div class="col-md-10">
+                @Html.TextBox("Student_name", $"{ViewBag.Info.Student_name}", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Клас</label>
+            <div class="col-md-10">
+                <select name="Student_form" id="Student_form" class="form-control">
+                    <option selected="selected">@ViewBag.Info.Student_form</option>
+                    @foreach (var item in ViewBag.Forms)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Дата народження</label>
+            <div class="col-md-10">
+
+                <input type="date" value="@ViewBag.Info.Student_birthday.ToString("yyyy-MM-dd")" class="form-control"
+                       name="Student_birthday" id="Student_birthday">
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Стать</label>
+            <div class="col-md-10">
+                <select name="Student_sex" id="Student_sex" class="form-control">
+                    <option selected="selected">@ViewBag.Info.Student_sex</option>
+                    @foreach (var item in ViewBag.Sex)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Адреса</label>
+            <div class="col-md-10">
+                @Html.TextBox("Student_adress", $"{ViewBag.Info.Student_adress}", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Пільга</label>
+            <div class="col-md-10">
+                <select name="Privilege_id" id="Privilege_id" class="form-control">
+                    <option selected="selected">@ViewBag.Info.Privilege_id</option>
+                    @foreach (var item in ViewBag.Privilages)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Харчування</label>
+            <div class="col-md-10">
+                @Html.CheckBox("Student_dinning", Convert.ToBoolean($"{ViewBag.Info.Student_dinning}"))
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Зберегти" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Назад", "Students",  new
+            {
+                Student_birthday_start = new DateTime(2000, 1, 1),
+                Student_birthday_end = DateTime.Now
+            })
+    </div>
+</body>
+</html>

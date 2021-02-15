@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateStudent</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2>Створення</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2">ПІБ учня</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_name", $"Введіть ПІБ", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Клас</label>
+                <div class="col-md-10">
+
+                    <select name="Form_id" id="Form_id" class="form-control">
+                        @foreach (var item in ViewBag.Forms)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Дата народження</label>
+                <div class="col-md-10">
+
+                    <input type="date" class="form-control" value="2005-02-12"
+                           name="Student_Birthday" id="Student_Birthday">
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Стать</label>
+                <div class="col-md-10">
+                    <select name="Student_sex" id="Student_sex" class="form-control">
+                        @foreach (var item in ViewBag.Sex)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Адреса</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_adress", $"Введіть адресу", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Соціальний статус</label>
+                <div class="col-md-10">
+                    <select name="Privilege_id" id="Privilege_id" class="form-control">
+                        @foreach (var item in ViewBag.Privileges)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Харчування</label>
+                <div class="col-md-10">
+                    @Html.CheckBox("Student_dinning")
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Електронна пошта батьків</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_post_parents", $"Введіть електронну пошту", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Електронна пошта</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_post", $"Введіть електронну пошту", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Пароль</label>
+                <div class="col-md-10">
+                    <input type="password" name="Student_password" class="form-control" value="1111111" id="pass" />
+                    <input type="checkbox" id="show" onchange="Show()" /> Показати пароль
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    @Html.Label("Mes", $"{@ViewBag.Mes}")
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Зберегти" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Назад", "Students", new
+            {
+                Student_birthday_start = new DateTime(2000, 1, 1),
+                Student_birthday_end = DateTime.Now
+            })
+    </div>
+    <script src="~/Scripts/passScript.js"></script>
+
+</body>
+</html>

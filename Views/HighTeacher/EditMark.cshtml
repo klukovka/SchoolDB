@@ -1,0 +1,107 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditMark</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Редагування</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("Student_id", $"{ViewBag.Info.Student_id}")
+        @Html.Hidden("Old_date",$"{ViewBag.Info.Date_create.ToString("yyyy-MM-dd")}")
+        @Html.Hidden("Teacher_Subject_id", $"{ViewBag.Teacher_Subject_id}")
+
+        <div class="form-group">
+            <label class="control-label col-md-2">ПІБ учня</label>
+            <div class="col-md-10">
+                @Html.Label("Student_name", $"{ViewBag.Info.Students.Student_name}")
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Клас</label>
+            <div class="col-md-10">
+                @Html.Label("Student_form", $"{ViewBag.Info.Students.Student_form}")
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Дата виставлення</label>
+            <div class="col-md-10">
+
+                <input type="date" value="@ViewBag.Info.Date_create.ToString("yyyy-MM-dd")" class="form-control"
+                       name="Date_create" id="Date_create">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Предмет</label>
+            <div class="col-md-10">
+                <select name="Subject" id="Subject" class="form-control">
+                    <option selected="selected">@ViewBag.Info.Teacher_Subject.Subject</option>
+                    @foreach (var item in ViewBag.Subjects)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Оцінка</label>
+            <div class="col-md-10">
+                @Html.TextBox("Mark", $"{ViewBag.Info.Mark}", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Тип роботи</label>
+            <div class="col-md-10">
+                <select name="Work_id" id="Work_id" class="form-control">
+                    <option selected="selected">@ViewBag.Info.Work_id</option>
+                    @foreach (var item in ViewBag.Types)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Зберегти" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Назад", "Marks",  new
+                   {MyDate_of_create_start = new DateTime(2020,1,1), 
+                       MyDate_of_create_end = DateTime.Now,
+                       Date_of_create_start = new DateTime(2020,1,1), 
+                       Date_of_create_end = DateTime.Now
+                   })
+    </div>
+</body>
+</html>

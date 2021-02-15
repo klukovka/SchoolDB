@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Teacher";
+}
+
+<h2>Мій профіль</h2>
+<table class="table">
+    <tr>
+        <th>Номер посвідчення</th>
+        <td>@ViewBag.Teacher.Teacher_id</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>ПІБ учителя</th>
+        <td>@ViewBag.Teacher.Teacher_name</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Класне керівництво</th>
+
+
+        @foreach (var item in ViewBag.Teacher.Forms)
+        {
+            if (item.Form_id != null)
+            {
+                <td>@item.Form_id</td>
+            }
+            else
+            {
+                <td>Без класного керівництва</td>
+            }
+
+        }
+
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Дата народження</th>
+        <td>@ViewBag.Teacher.Teacher_birthday.ToString("yyyy-MM-dd")</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Стать</th>
+        <td>@ViewBag.Teacher.Teacher_sex</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Закріплений кабінет</th>
+        @if (@ViewBag.Teacher.Teacher_room != null)
+        {
+            <td>@ViewBag.Teacher.Teacher_room</td>
+        }
+        else
+        {
+            <td>Без закріпленого кабінету</td>
+        }
+        <th></th>
+    </tr>
+    <tr>
+        <th>Вчительська категорія</th>
+        <td>@ViewBag.Teacher.Category_id</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Кількість годин</th>
+        <td>@ViewBag.Hours</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Зарплата</th>
+        <td>@ViewBag.Salary грн.</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Електронна пошта</th>
+        <td>@ViewBag.Teacher.Teacher_post</td>
+        <td>
+            @Html.ActionLink("Редагувати", "EditLog")
+        </td>
+        <th></th>
+    </tr>
+
+
+
+</table>

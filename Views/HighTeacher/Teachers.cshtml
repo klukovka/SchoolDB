@@ -1,0 +1,292 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Teachers";
+}
+
+
+<h2>Інформація про мене</h2>
+
+@Html.ActionLink("Редагувати", "EditTeacher", new { id = ViewBag.Teacher.Teacher_id })
+
+<table class="table">
+    <tr>
+        <th>Номер посвідчення</th>
+        <td>@ViewBag.Teacher.Teacher_id</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>ПІБ учителя</th>
+        <td>@ViewBag.Teacher.Teacher_name</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Класне керівництво</th>
+
+
+        @foreach (var item in ViewBag.Teacher.Forms)
+        {
+            if (item.Form_id != null)
+            {
+                <td>@item.Form_id</td>
+            }
+            else
+            {
+                <td>Без класного керівництва</td>
+            }
+
+        }
+
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Дата народження</th>
+        <td>@ViewBag.Teacher.Teacher_birthday.ToString("yyyy-MM-dd")</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Стать</th>
+        <td>@ViewBag.Teacher.Teacher_sex</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Закріплений кабінет</th>
+        @if (@ViewBag.Teacher.Teacher_room != null)
+        {
+            <td>@ViewBag.Teacher.Teacher_room</td>
+        }
+        else
+        {
+            <td>Без закріпленого кабінету</td>
+        }
+        <th></th>
+    </tr>
+    <tr>
+        <th>Вчительська категорія</th>
+        <td>@ViewBag.Teacher.Category_id</td>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Предмети та класи</th>
+        <td>
+            @foreach (KeyValuePair<string, List<string>> pair in ViewBag.MySubForm)
+            {
+                <label>@pair.Key - </label>
+                for (int i = 0; i < pair.Value.Count; i++)
+                {
+                    <label>@pair.Value[i];</label>
+                }
+                <br />
+            }
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <th>Кількість годин</th>
+        <td>@ViewBag.Hours</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Зарплата</th>
+        <td>@ViewBag.Salary грн.</td>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Електронна пошта</th>
+        <td>@ViewBag.Teacher.Teacher_post</td>
+        <th></th>
+    </tr> 
+</table>
+
+@using (Html.BeginForm())
+{
+
+    <h2>Усі вчителі</h2>
+    @Html.ActionLink("Додати", "CreateTeacher", new { Teacher_Birthday = DateTime.Now })
+    <br />
+    <label>Сортувати за:</label>
+
+    <th>
+        <div id="criterias">
+
+            <input type="radio" name="cr" value="1" onchange="Search()" id="sub" />Номером посвідчення<br />
+            <input type="radio" name="cr" value="2" onchange="Search()" id="teach" />Ім'ям<br />
+        </div>
+    </th>
+
+
+
+    <table class="table">
+        <tr>
+            <th>Номер посвідчення</th>
+            <th>ПІБ учителя</th>
+            <th>Класне керівництво</th>
+            <th>Дата народження</th>
+            <th>Стать</th>
+            <th>Закріплений кабінет</th>
+            <th>Вчительська категорія</th>
+            <th>Предмети та класи</th>
+            <th>Електронна пошта</th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_id", $"{@ViewBag.Teacher_id}", new { @class = "form-control", @style="width: 75px"})
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_name", $"{@ViewBag.Teacher_name}", new { @class = "form-control", @style="width: 200px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_form", $"{@ViewBag.Teacher_form}", new { @class = "form-control", @style="width: 75px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+
+                    Від:<input type="date" value="@ViewBag.Teacher_birthday_start" class="form-control"
+                               name="Teacher_birthday_start" id="Teacher_birthday_start" style="width: auto"> <br />
+                    До:<input type="date" value="@ViewBag.Teacher_birthday_end" class="form-control"
+                              name="Teacher_birthday_end" id="Teacher_birthday_end" style="width:auto">
+
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="Teacher_sex" id="Teacher_sex" class="form-Form" style="width:auto">
+                        <option>@ViewBag.Teacher_sex</option>
+                        @foreach (var item in ViewBag.Sex)
+                        {
+                            if (item != ViewBag.Teacher_sex)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_room", $"{@ViewBag.Teacher_room}", new { @class = "form-control" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="Category_id" id="Category_id" class="form-Form" style="width:auto">
+                        <option>@ViewBag.Category_id</option>
+                        @foreach (var item in ViewBag.Categories)
+                        {
+                            if (item != ViewBag.Category_id)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+       
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("Teacher_post", $"{@ViewBag.Teacher_post}", new { @class = "form-control", @style="width: 200px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Фільтр" class="btn btn-default" />
+                </div>
+            </th>
+        </tr>
+
+        @foreach (var t in ViewBag.Teachers)
+        {
+            <tr>
+                <td>@t.Teacher_id</td>
+                <td>@t.Teacher_name</td>
+                @foreach (var item in t.Forms)
+                {
+                    if (item.Form_id != null)
+                    {
+                        <td>@item.Form_id</td>
+                    }
+                    else
+                    {
+                        <td>Без класного керівництва</td>
+                    }
+
+                }
+                <td>@t.Teacher_birthday.ToString("yyyy-MM-dd")</td>
+                <td>@t.Teacher_sex</td>
+                @if (t.Teacher_room != null)
+                {
+                    <td>@t.Teacher_room</td>
+                }
+                else
+                {
+                    <td> Без закріпленого кабінету</td>
+                }
+                <td>@t.Category_id</td>
+                <td>
+                    @foreach (KeyValuePair<string, List<string>> pair in t.SubjectForms)
+                    {
+                        <label>@pair.Key - </label>
+                        for (int i = 0; i < pair.Value.Count; i++)
+                        {
+                            <label>@pair.Value[i];</label>
+                        }
+                        <br />
+                    }
+                </td>
+
+                <td>@t.Teacher_post</td>
+                <td>
+                    @Html.ActionLink("Редагувати", "EditTeacher", new { id = t.Teacher_id }) <br />
+                    @Html.ActionLink("Видалити", "DeleteTeacher", new { id = t.Teacher_id })
+                </td>
+            </tr>
+
+        }
+
+    </table>
+}
+
+<script>
+    window.onload = function () {
+        let urlParams = new URLSearchParams(window.location.search);
+        let cr = urlParams.get('cr');
+        let val = urlParams.get('val');
+        if (cr == 2)
+            this.document.getElementById("teach").checked = true;
+        else
+            this.document.getElementById("sub").checked = true;
+        $('#search_id').val(val);
+
+    }
+
+    function Search() {
+        var selectedOption = $("input:radio[name=cr]:checked").val();
+        let start = document.getElementById('Teacher_birthday_start').value;
+        let end = document.getElementById('Teacher_birthday_end').value;
+        window.location.href = "Teachers?cr=" + selectedOption +
+            "&Teacher_birthday_start=" + start +
+            "&Teacher_birthday_end=" + end;
+
+    }
+</script>
+

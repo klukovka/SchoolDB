@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Form";
+}
+
+<h2>Клас</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+
+        <tr>
+            <th>Клас</th>
+            <th>Спрямування</th>
+            <th>Класний керівник</th>
+        </tr>
+        <tr>
+            <td>@ViewBag.Form.Form_id</td>
+            <td>@ViewBag.Form.Direction</td>
+            <td>@ViewBag.Form.Teachers.Teacher_name</td>
+        </tr>
+    </table>
+<h2>Список класу</h2>
+<table class="table">
+    <tr>
+        <th>ПІБ учня</th>
+        <th>Дата народження</th>
+        <th>Адреса</th>
+        <th>Стать</th>
+        <th>Електронна пошта</th>
+    </tr>
+    <tr>
+        <th>
+            <div class="col-md-10">
+                @Html.TextBox("Student_name", $"{@ViewBag.Student_name}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+
+                Від:<input type="date" value="@ViewBag.Student_birthday_start" class="form-control"
+                           name="Student_birthday_start" id="Student_birthday_start"  style="width:auto"> <br />
+                До:<input type="date" value="@ViewBag.Student_birthday_end" class="form-control"
+                          name="Student_birthday_end" id="Student_birthday_end"  style="width:auto">
+
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+                @Html.TextBox("Student_adress", $"{ViewBag.Student_adress}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+                <select name="Student_sex" id="Student_sex" class="form-control" style="width:auto">
+                    <option>@ViewBag.Student_sex</option>
+                    @foreach (var item in ViewBag.Sex)
+                    {
+                        if (item != ViewBag.Student_sex)
+                        {
+                            <option>@item</option>
+
+                        }
+
+                    }
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+                @Html.TextBox("Student_post", $"{@ViewBag.Student_post}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Фільтр" class="btn btn-default" />
+            </div>
+        </th>
+    </tr>
+    @foreach (var item in ViewBag.Students)
+    {
+        <tr>
+            <td>@item.Student_name</td>
+            <td>@item.Student_birthday.ToString("yyyy-MM-dd")</td>
+            <td>@item.Student_adress</td>
+            <td>@item.Student_sex</td>
+            <td>@item.Student_post</td>
+        </tr>
+    }
+</table>
+}

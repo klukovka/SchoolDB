@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - _StudentLayout</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SchoolDB", "Index", "Student", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Мій профіль", "Student", "Student")</li>
+                    <li>@Html.ActionLink("Мій клас", "Form", new { Student_birthday_start=new DateTime(2000,11,11), 
+                       Student_birthday_end = DateTime.Now})</li>
+                    <li>@Html.ActionLink("Мої оцінки", "Marks", new { Date_start=new DateTime(2020,9,1), 
+                       Date_end = DateTime.Now})</li>
+                    <li>@Html.ActionLink("Моє харчування", "Eating", "Student")</li>
+                    <li>@Html.ActionLink("Мій розклад", "Timetable", "Student")</li>
+                    <li>@Html.ActionLink("Мої вчителі та предмети", "Teacher_Subject", "Student")</li>
+
+                </ul>
+                <ul class="nav navbar-nav" style="float: right">
+                    <li>@Html.ActionLink("Вийти", "Index", "Home")</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ІС "Школа. Підсистема роботи завуча з навчальної роботи" Коба Ю.Ю. ПЗПІ-19-6</p>
+
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

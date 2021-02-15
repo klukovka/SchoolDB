@@ -1,0 +1,189 @@
+﻿@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Rating";
+}
+
+<h1>Статистика</h1>
+<h2>Кількість зустрічей вчителів із класом за тиждень</h2>
+<table class="table">
+    @for (int i = 0; i < ViewBag.Meets.GetUpperBound(0) + 1; i++)
+    {
+        <tr>
+            @for (int j = 0; j < ViewBag.Meets.GetUpperBound(1) + 1; j++)
+            {
+                if (ViewBag.Meets[i, j] != "0")
+                {
+                    <td>@ViewBag.Meets[i, j]</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+    }
+</table>
+<h2>Кількість годин кожного предмету в тиждень у класі</h2>
+<table class="table">
+    @for (int i = 0; i < ViewBag.CountSubject.GetUpperBound(0) + 1; i++)
+    {
+        <tr>
+            @for (int j = 0; j < ViewBag.CountSubject.GetUpperBound(1) + 1; j++)
+            {
+                if (ViewBag.CountSubject[i, j] != "0")
+                {
+                    <td>@ViewBag.CountSubject[i, j]</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+    }
+</table>
+<h2>Бали учнів за кожен з предметів</h2>
+<table class="table">
+    <tr>
+        <th>Клас</th>
+        <th>Предмет</th>
+        <th>Учитель</th>
+        <th>Учень</th>
+        <th>Оцінка за поточні роботи</th>
+        <th>Оцінка за самостійні роботи</th>
+        <th>Оцінка за контрольні роботи</th>
+        <th>Оцінка за предмет</th>
+    </tr>
+    @foreach (string[] item in ViewBag.MSS)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+        </tr>
+    }
+</table>
+<h2>Бали класів за кожен з предметів</h2>
+<table class="table">
+    <tr>
+        <th>Клас</th>
+        <th>Предмет</th>
+        <th>Учитель</th>
+        <th>Оцінка за поточні роботи</th>
+        <th>Оцінка за самостійні роботи</th>
+        <th>Оцінка за контрольні роботи</th>
+        <th>Оцінка за предмет</th>
+    </tr>
+    @foreach (string[] item in ViewBag.MFS)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+        </tr>
+    }
+</table>
+<h2>Рейтинг учнів</h2>
+<table class="table">
+    <tr>
+
+        <th>Рейтинговий бал</th>
+        <th>Номер учнівського</th>
+        <th>Учень</th>
+        <th>Клас</th>
+        <th>Табелі</th>
+        <th> @Html.ActionLink("Відправити нагадування всім батькам", "SendForParent")</th>
+
+    </tr>
+
+    @foreach (string[] item in ViewBag.MS)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+        <td>
+            @Html.ActionLink("Завантажити табель", "DownloadTab", new { id = item[1] })
+
+        </td>
+        <td>
+            @Html.ActionLink("Завантажити нагадування батькам", "DownloadForParent", new { id = item[1] }) <br/>
+            @Html.ActionLink("Відправити нагадування батькам", "SendForParent", new { id = item[1] })
+        </td>
+        </tr>
+
+    }
+</table>
+<h2>Зарплати вчителів</h2>
+<table class="table">
+    <tr>
+
+        <th>Зарплата</th>
+        <th>Номер посвідчення</th>
+        <th>Вчитель</th>
+        <th>Кількість робочих годин</th>
+
+    </tr>
+    @foreach (string[] item in ViewBag.Salary)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+        </tr>
+    }
+</table>
+
+
+<h2>Плата учнів за харчування</h2>
+<table class="table">
+    <tr>
+
+        <th>Номер учнівського</th>
+        <th>Учень</th>
+        <th>Клас</th>
+        <th>Соціальна категорія</th>
+        <th>Знижка (%)</th>
+        <th>Сплата за день</th>
+        <th>Сплата за тиждень</th>
+
+    </tr>
+    @foreach (string[] item in ViewBag.SD)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+             
+        </tr>
+    }
+</table>
+
+<h2>Плата класів за харчування</h2>
+<table class="table">
+    <tr>
+
+        <th>Клас</th>
+        <th>Сплата за день</th>
+        <th>Сплата за тиждень</th>
+
+    </tr>
+    @foreach (string[] item in ViewBag.FD)
+    {
+        <tr>
+            @for (int i = 0; i < item.Length; i++)
+            {
+                <td>@item[i]</td>
+            }
+        </tr>
+    }
+</table>
+

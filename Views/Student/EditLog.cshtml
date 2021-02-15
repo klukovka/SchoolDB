@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditLog</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2>Редагування</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Електронна пошта батьків</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_post_parent", $"{ViewBag.Student_post_parent}", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Електронна пошта</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Student_post", $"{ViewBag.Student_post}", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Пароль</label>
+                <div class="col-md-10">
+                    <input type="password" name="Student_password" class="form-control" value=@ViewBag.Student_password id="pass" />
+                    <input type="checkbox" id="show" onchange="Show()" /> Показати пароль
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Student")
+    </div>
+
+    <script src="~/Scripts/passScript.js"></script>
+
+</body>
+</html>

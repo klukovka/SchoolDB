@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Student";
+}
+
+<h2>Мій профіль</h2>
+<table class="table">
+    <tr>
+        <th>Номер учнівського</th>
+        <th>@ViewBag.Student.Student_id</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>ПІБ учня</th>
+        <th>@ViewBag.Student.Student_name</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Клас</th>
+        <th>@ViewBag.Student.Student_form</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <th>Дата народження</th>
+        <th>@ViewBag.Student.Student_birthday.ToString("yyyy-MM-dd")</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Стать</th>
+        <th>@ViewBag.Student.Student_sex</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Адреса</th>
+        <th>@ViewBag.Student.Student_adress</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Соціальний статус</th>
+        <th>@ViewBag.Student.Privilege_id</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Харчування</th>
+        <th>@ViewBag.Student.Student_dinning</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Електронна пошта</th>
+        <th>@ViewBag.Student.Student_post</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>Електронна пошта батьків</th>
+        <th>@ViewBag.Student.Student_post_parents</th>
+        <td>
+            @Html.ActionLink("Редагувати", "EditLog")
+        </td>
+        <th></th>
+    </tr>
+
+
+
+</table>
+

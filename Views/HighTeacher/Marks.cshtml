@@ -1,0 +1,260 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Marks";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h2>Мої оцінки</h2>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">Клас</label>
+            <div class="col-md-10">
+                <select name="Form_id" id="Form_id" class="form-control">
+                    @foreach (var item in ViewBag.MyForms)
+                    {
+                        if (item != "Всі")
+                        {
+                        <option>@item</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" name="action" value="Додати" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>Предмет</th>
+            <th>Клас</th>
+            <th>ПІБ учня</th>
+            <th>Оцінка</th>
+            <th>Дата виставлення</th>
+            <th>Тип роботи</th>
+            <th></th>
+
+        </tr>
+        <tr>
+        <tr>
+            <th>
+                <div class="col-md-10">
+                    <select name="MySubject" id="MySubject" class="form-control" style="width:auto">
+                        <option>@ViewBag.MySubject</option>
+                        @foreach (var item in ViewBag.MySubjects)
+                        {
+                            if (item != ViewBag.MySubject)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="MyStudent_form" id="MyStudent_form" class="form-control" style="width:auto">
+                        <option>@ViewBag.MyStudent_form</option>
+                        @foreach (var item in ViewBag.MyForms)
+                        {
+                            if (item != ViewBag.MyStudent_form)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    @Html.TextBox("MyStudent_name", $"{@ViewBag.MyStudent_name}", new { @class = "form-control", @style="width: 200px" })
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="MyMark" id="MyMark" class="form-control" style="width:auto">
+                        <option>@ViewBag.MyMark</option>
+                        @foreach (var item in ViewBag.MyMarksList)
+                        {
+                            if (item != ViewBag.MyMark)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+
+                    Від:<input type="date" value="@ViewBag.MyDate_of_create_start" class="form-control"
+                               name="MyDate_of_create_start" id="MyDate_of_create_start" style="width:auto"> <br />
+                    До:<input type="date" value="@ViewBag.MyDate_of_create_end" class="form-control"
+                              name="MyDate_of_create_end" id="MyDate_of_create_end" style="width:auto">
+
+                </div>
+            </th>
+            <th>
+                <div class="col-md-10">
+                    <select name="MyWork_id" id="MyWork_id" class="form-control" style="width:auto">
+                        <option>@ViewBag.MyWork_id</option>
+                        @foreach (var item in ViewBag.Works)
+                        {
+                            if (item != ViewBag.MyWork_id)
+                            {
+                                <option>@item</option>
+
+                            }
+
+                        }
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" name="action" value="Фільтр" class="btn btn-default">
+                    </div>
+                </div>
+            </th>
+        </tr>
+        
+        @foreach (var item in ViewBag.MyMarks)
+        {
+            <tr>
+                <td>@item.Teacher_Subject.Subject</td>
+                <td>@item.Students.Student_form</td>
+                <td>@item.Students.Student_name</td>
+                <td>@item.Mark</td>
+                <td>@item.Date_create.ToString("yyyy-MM-dd")</td>
+                <td>@item.Work_id</td>
+                <td>
+                    @Html.ActionLink("Редагувати", "EditMark", new
+               {
+                   Student_id = item.Students.Student_id,
+                   Date_create = item.Date_create,
+                   Teacher_Subject_id = item.Teacher_Subject_id
+               })
+                    <br />
+                    @Html.ActionLink("Видалити", "DeleteMark", new
+               {
+                   Student_id = item.Students.Student_id,
+                   Date_create = item.Date_create,
+                   Teacher_Subject_id = item.Teacher_Subject_id
+               })
+                </td>
+            </tr>
+        }
+    </table>
+
+<h2>Усі оцінки</h2>
+
+<table class="table">
+    <tr>
+
+        <th>ПІБ учителя</th>
+        <th>Предмет</th>
+        <th>Клас</th>
+        <th>ПІБ учня</th>
+        <th>Оцінка</th>
+        <th>Дата виставлення</th>
+        <th>Тип роботи</th>
+        <th></th>
+
+    <tr>
+        <th>
+            <div class="col-md-10">
+                @Html.TextBox("Teacher_name", $"{@ViewBag.Teacher_name}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+
+            <div class="col-md-10">
+                @Html.TextBox("Subject", $"{@ViewBag.Subject}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+
+            <div class="col-md-10">
+                @Html.TextBox("Student_form", $"{@ViewBag.Student_form}", new { @class = "form-control", @style="width: 75px" })
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+                @Html.TextBox("Student_name", $"{@ViewBag.Student_name}", new { @class = "form-control", @style="width: 200px" })
+            </div>
+        </th>
+        <th>
+
+            <div class="col-md-10">
+                @Html.TextBox("Mark", $"{@ViewBag.Mark}", new { @class = "form-control", @style="width: 75px" })
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+
+                Від:<input type="date" value="@ViewBag.Date_of_create_start" class="form-control"
+                           name="Date_of_create_start" id="Date_of_create_start" style="width:auto"> <br />
+                До:<input type="date" value="@ViewBag.Date_of_create_end" class="form-control"
+                          name="Date_of_create_end" id="Date_of_create_end" style="width:auto">
+
+            </div>
+        </th>
+        <th>
+            <div class="col-md-10">
+                <select name="Work_id" id="Work_id" class="form-control" style="width:auto">
+                    <option>@ViewBag.Work_id</option>
+                    @foreach (var item in ViewBag.Works)
+                    {
+                        if (item != ViewBag.Work_id)
+                        {
+                            <option>@item</option>
+
+                        }
+
+                    }
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="action" value="Фільтр" class="btn btn-default">
+                </div>
+            </div>
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Marks)
+    {
+        <tr>
+            <td>@item.Teacher_Subject.Teachers.Teacher_name</td>
+            <td>@item.Teacher_Subject.Subject</td>
+            <td>@item.Students.Student_form</td>
+            <td>@item.Students.Student_name</td>
+            <td>@item.Mark</td>
+            <td>@item.Date_create.ToString("yyyy-MM-dd")</td>
+            <td>@item.Work_id</td>
+            <td></td>
+        </tr>
+    }
+</table>
+
+}

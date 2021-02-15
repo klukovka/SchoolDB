@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Teacher_Subject";
+}
+
+    <body>
+        <h2>Учителі та предмети</h2>
+        @Html.ActionLink("Додати", "CreateTeacherSubject")
+
+
+        <table class="table" id="table_id">
+            <tr>
+                <th>
+                    <input type="text" id="search_id" class="form-control" />
+                    <button onclick="Search()" class="btn btn-default">Пошук</button>
+                </th>
+                <th></th>
+                <th></th>
+                <th>
+                    Сортувати за:
+                </th>
+                <th>
+                    <div id="criterias">
+
+                        <input type="radio" name="cr" value="1" onchange="Search()" id="sub" />Предметом<br />
+                        <input type="radio" name="cr" value="2" onchange="Search()" id="teach" />Учителем<br />
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Предмет
+                </th>
+                <th>
+                    Учитель
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.TS)
+            {
+                <tr>
+                    <td>
+                        @item.Subject
+                    </td>
+                    <td>
+                        @item.Teachers.Teacher_name
+                    </td>
+                    <td> @Html.ActionLink("Видалити", "DeleteTeacherSubject", new { id = item.Teacher_Subject_id })</td>
+
+                </tr>
+            }
+
+        </table>
+        <script>
+            window.onload = function () {
+                let urlParams = new URLSearchParams(window.location.search);
+                let cr = urlParams.get('cr');
+                let val = urlParams.get('val');
+                if (cr == 2)
+                    this.document.getElementById("teach").checked = true;
+                else
+                    this.document.getElementById("sub").checked = true;
+                $('#search_id').val(val);
+
+            }
+
+            function Search() {
+                let val = document.getElementById('search_id').value;
+                var selectedOption = $("input:radio[name=cr]:checked").val();
+                window.location.href = "Teacher_Subject?cr=" + selectedOption + "&val=" + val;
+            }
+        </script>
+    </body>

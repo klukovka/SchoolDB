@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Privileges";
+}
+
+<h2>Пільги на харчування</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Соціальна категорія
+        </th>
+        <th>
+            Знижка на харчування
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var p in ViewBag.Prvl)
+    {
+        <tr>
+            <th>
+                @p.Privilege_id
+            </th>
+            <th>
+                @p.Sale
+            </th>
+            <th></th>
+        </tr>
+    }
+
+</table>

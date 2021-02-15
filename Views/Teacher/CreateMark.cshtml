@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateMark</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2>Створення</h2>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Учень</label>
+                <div class="col-md-10">
+
+                    <select name="Student_id" id="Student_id" class="form-control">
+                        @foreach (var item in ViewBag.Students)
+                        {
+                            <option value="@item.Student_id">@item.Student_name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Предмет</label>
+                <div class="col-md-10">
+
+                    <select name="Teacher_Subject_id" id="Teacher_Subject_id" class="form-control">
+                        @foreach (var item in ViewBag.TS)
+                        {
+                            <option value="@item.Teacher_Subject_id">@item.Subject</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Дата виставлення</label>
+                <div class="col-md-10">
+
+                    <input type="date" class="form-control" value="2020-11-20"
+                           name="Date_create" id="Date_create">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Оцінка</label>
+                <div class="col-md-10">
+                    @Html.TextBox("Mark", $"Введіть оцінку", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Тип роботи</label>
+                <div class="col-md-10">
+
+                    <select name="Type_Of_Work" id="Type_Of_Work" class="form-control">
+                        @foreach (var item in ViewBag.Types)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Marks", new 
+            {
+                Date_of_create_start = new DateTime(2020, 9, 1),
+                Date_of_create_end = DateTime.Now,
+                Subject = "Всі",
+                Student_name = "",
+                Mark = "Всі",
+                Work_id = "Всі",
+                Student_form = "Всі"
+            }) 
+    </div>
+</body>
+</html>

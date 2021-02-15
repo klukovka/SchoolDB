@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+}
+    <!DOCTYPE html>
+   
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LogIn</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+    <body>
+        <h2>Авторизація</h2>
+        <table class="table">
+            <form>
+                <tr>
+                    <td>Логін: </td>
+                    <td>@Html.TextBox("post", "", new { @class = "form-control"})</td>
+                </tr>
+                <tr>
+                    <td>Пароль: </td>
+                    <td>
+                        <input type="password" name="password" class="form-control" value="" id="pass"/>
+                        <input type="checkbox" id="show" onchange="Show()"/> Показати пароль
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                       
+                    </td>
+                    <td>
+                        @ViewBag.Messege<br/>
+                        <button class="btn btn-default">Увійти</button>
+                    </td>
+
+
+                </tr>
+            </form>
+
+        </table>
+    
+        <script>
+               window.onload = function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let cr = urlParams.get('cr');
+            if (cr == 1)
+                this.document.getElementById("stud").checked = true;
+            else
+                this.document.getElementById("teach").checked = true;
+        }
+        </script>
+        <script src="~/Scripts/passScript.js"></script>
+    </body>
+
+
+

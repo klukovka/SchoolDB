@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteMark</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+
+            <label> @ViewBag.Mes</label><br />
+            <input type="submit" name="action" value="Так" class="btn btn-default">
+            <input type="submit" name="action" value="Ні" class="btn btn-default">
+        }
+
+    </div>
+</body>
+</html>

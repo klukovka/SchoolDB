@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_HighTeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditForm</title>
+</head>
+
+    <body>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2>Редагування</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.Hidden("Form_id", $"{ViewBag.Info.Form_id}")
+            @Html.Hidden("Teacher_id", $"{ViewBag.Info.Teacher_id}")
+            <h3>@ViewBag.Info.Form_id</h3>
+            <div class="form-group">
+                <label class="control-label col-md-2">Класний керівник</label>
+                <div class="col-md-10">
+                    <select name="Teacher_name" id="Teacher_name" class="form-control">
+                        <option selected="selected">@ViewBag.Info.Teachers.Teacher_name</option>
+                        @foreach (var item in ViewBag.Teachers)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Спрямування</label>
+                <div class="col-md-10">
+                    <select name="Direction" id="Direction" class="form-control">
+                        <option selected="selected">@ViewBag.Info.Direction</option>
+                        @foreach (var item in ViewBag.Directions)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Forms")
+        </div>
+    </body>
+
+</html>

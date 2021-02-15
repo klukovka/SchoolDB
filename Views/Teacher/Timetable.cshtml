@@ -1,0 +1,247 @@
+﻿@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Timetable";
+}
+
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Tree.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="~/Scripts/TreeScript.js"></script>
+
+</head>
+<body>
+    <h2>Розклад дзвінків</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Номер уроку
+            </th>
+            <th>
+                Початок уроку
+            </th>
+            <th>
+                Кінець уроку
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var b in ViewBag.Bells)
+        {
+            <tr>
+                <th>
+                    @b.Lesson_id
+                </th>
+                <th>
+                    @b.Begin
+                </th>
+                <th>
+                    @b.End
+                </th>
+                <th></th>
+            </tr>
+        }
+    </table>
+    <table class="table">
+
+        @using (Html.BeginForm())
+        {
+            <tr>
+                <td>
+                    <h2>Розклад</h2>
+                </td>
+                <td>
+                    <h2> уроків</h2>
+                </td>
+                <th>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Фільтр" class="btn btn-default" />
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    День тижня
+                </th>
+                <th>
+                    Клас
+                </th>
+                <th>
+                    Номер уроку
+                </th>
+                <th>
+                    Предмет
+                </th>
+                <th>
+                    Вчитель
+                </th>
+                <th></th>
+
+                <th>
+                    Кабінет
+                </th>
+
+            </tr>
+
+
+            <tr>
+                <th>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+
+                            <select name="day" id="day" class="form-control" style="width: auto; align-self: self-start">
+                                <option value="@ViewBag.DAY.Item1">@ViewBag.DAY.Item2</option>
+                                @foreach (KeyValuePair<string, string> keyValue in ViewBag.days)
+                                {
+                                    if (keyValue.Key != ViewBag.DAY.Item1)
+                                    {
+                                        <option value="@keyValue.Key">@keyValue.Value</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </th>
+                <th>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+                            <select name="form" id="form" class="form-control" style="width: auto">
+                                <option>@ViewBag.FORM</option>
+
+                                @foreach (var item in ViewBag.Forms)
+                                {
+                                    if (item != ViewBag.FORM)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </th>
+                <th>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+
+                            <select name="lesson" id="lesson" class="form-control" style="width: auto">
+                                <option>@ViewBag.LESSON</option>
+
+                                @foreach (var item in ViewBag.Lessons)
+                                {
+                                    if (item != ViewBag.LESSON)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+                </th>
+                <th>
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+
+                            <select name="subject" id="subject" class="form-control" style="width: auto">
+                                <option>@ViewBag.SUBJECT</option>
+
+                                @foreach (var item in ViewBag.Subjects)
+                                {
+                                    if (item != ViewBag.SUBJECT)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+
+                            <select name="teacher" id="teacher" class="form-control" style="width: auto">
+                                <option>@ViewBag.TEACHER</option>
+
+                                @foreach (var item in ViewBag.Teachers)
+                                {
+                                    if (item != ViewBag.TEACHER)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </th>
+                <th></th>
+
+                <th>
+                    <div class="form-group">
+                        <label class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+
+                            <select name="room" id="room" class="form-control" style="width: auto">
+                                <option>@ViewBag.ROOM</option>
+
+                                @foreach (var item in ViewBag.Rooms)
+                                {
+                                    if (item != ViewBag.ROOM)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        }
+
+
+        @foreach (var item in ViewBag.Timetable)
+        {
+            <tr>
+                <th>
+                    @item.Day_UA
+                </th>
+                <th>
+                    @item.Form_id
+                </th>
+                <th>
+                    @item.Lesson_id
+                </th>
+                <th>
+                    @item.Teacher_Subject.Subject
+                </th>
+                <th>
+                    @item.Teacher_Subject.Teachers.Teacher_name
+                </th>
+                <th></th>
+
+                <th>
+                    @item.Classroom
+                </th>
+            </tr>
+        }
+
+    </table>
+
+</body>
