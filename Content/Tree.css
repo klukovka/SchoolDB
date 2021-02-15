@@ -1,0 +1,24 @@
+﻿form#tree fieldset {
+    margin: 0 0 0 15px;
+    padding: 0;
+    /*border: solid 1px black;*/
+}
+
+    form#tree fieldset legend {
+        margin: -22px -10px -22px -10px;
+        width: auto;
+        font-size: 14px;
+        border: 0;
+        cursor: pointer;
+    }
+
+    form#tree fieldset.closed {
+        margin: 0 0 0 15px;
+        padding: 0;
+        /*border: solid 1px black;*/
+        display: none;
+    }
+
+div.checkbox {
+    margin: 3px;
+}
