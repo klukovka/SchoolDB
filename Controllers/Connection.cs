@@ -10,8 +10,8 @@ namespace SchoolDB.Controllers
     {
         public string ConnectionString
         {
-           // get => WebConfigurationManager.ConnectionStrings["School_db"].ConnectionString;
-            get => WebConfigurationManager.ConnectionStrings["SchoolContext"].ConnectionString;
+            get => WebConfigurationManager.ConnectionStrings["School_db"].ConnectionString;
+           // get => WebConfigurationManager.ConnectionStrings["SchoolContext"].ConnectionString;
         }
     }
 }
